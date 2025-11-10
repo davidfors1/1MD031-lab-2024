@@ -1,1 +1,135 @@
-Hello world
+<!DOCTYPE HTML>
+<html lang="en">
+   <head>
+       <title>BurgarDax</title>
+       <meta charset="utf-8"/>
+   </head>
+   <body>
+    <header>
+        <h1>
+            Välkommen till McDO!
+        </h1>
+    </header>
+    
+    <main>
+        <section>
+            <h2>
+                Välj en burgare!
+            </h2>
+            <p>Här kan du se lite vackra bilder på våra underbart fantastiska burgare.</p>
+
+          <div style="display: inline-block">
+            <h3>
+                Burger au caillot de sang.
+            </h3>
+
+            <img src="/img/smasmabug.jpg" style="width: 400px;">
+
+            <ul>
+                <li>Bacon</li>
+                <li>Mycket Ost</li>
+                <li>Karameliserad lök</li>
+            </ul>
+            </div>
+
+            <div style="display: inline-block">
+            <h3>
+                Le Burger.
+            </h3>
+
+            <img src="/img/leburger.jpg" style="width: 400px;">
+
+            <ul>
+                <li>Tomat   </li>
+                <li>Lök</li>
+                <li>Sås</li>
+            </ul>
+            </div>
+
+            <div style="display: inline-block">
+            <h3>
+                Burger désagréablement.
+            </h3>
+
+            <img src="/img/läskigburgare.jpg" style="width: 400px;">
+
+            <ul>
+                <li>Monsterkött</li>
+                <li>Gurka</li>
+                <li>Oliver?</li>
+            </ul>
+            </div>
+
+        </section>
+        
+        <section>
+            <h2>
+                Information om dig!
+            </h2>
+            <p>
+                Vi vill veta lite granna om dig, så inte vi skickar den underbara burgaren till fel person.
+            </p>
+
+            <form>
+                <p>
+                    <label for="Namn">Ditt namn</label><br>
+                    <input type="text" id="name" name="n" required="required" placeholder="Namn">
+                </p>
+                <p>
+                    <label for="E-postadress">Din e-postadress</label><br>
+                    <input type="text" id="email" name="em" placeholder="E-postadress">
+                </p>
+                <p>
+                    <label for="gata">Namnet på din gata</label><br>
+                    <input type="text" id="gata" name="gn" required="required" placeholder="Gatunamn">
+                </p>
+                <p>
+                    <label for="Husnummer">Ditt husnummer</label><br>
+                    <input type="number" id="nummer" name="gn" required="required" placeholder="Husnummer">
+                </p>
+
+                <p>
+                    <label for="betalningsmetod">Betalningsmetod</label><br>
+                    <select type="option" id="betalningsmetod" name="bem">
+                    <option>Cash</option>
+                    <option>Kort</option>
+                    <option>Kreditkort</option>
+                    <option selected="selected">Kramar</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="Ditt kön">Kön</label><kö>
+                    <div>
+                        <input type="radio" id="Man" name="Kön" value="Man"  />
+                        <label for="Man">Man</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="Kvinna" name="Kön" value="Kvinna" checked="checked"  />
+                        <label for="Kvinna">Kvinna</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="Vill ej ange" name="Kön" value="Vill ej ange" />
+                        <label for="Vill ej ange">Vill ej ange</label>
+                    </div>
+                </p>
+            </form>
+
+
+        </section>
+
+        <button type="submit">
+            <img src="/img/OrderNow.png"style="width: 50px">
+            Beställ Nu!
+        </button>    
+    </main>
+    
+    <hr> <!-- Från GPT-->
+    <footer>
+         &copy; 2025 David
+    </footer>
+
+   </body>
+</html>
