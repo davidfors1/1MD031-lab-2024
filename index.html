@@ -1,24 +1,30 @@
 <!DOCTYPE HTML>
 <html lang="en">
    <head>
-       <title>BurgarDax</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+       <title>Franska donken</title>
        <meta charset="utf-8"/>
    </head>
    <body>
-    <header>
-        <h1>
-            Välkommen till McDO!
+    <header id="head">
+        <img src="https://cdn.pixabay.com/photo/2016/06/13/18/19/france-1454908_1280.jpg" id="flag">
+        <h1 id="htext">
+            Bienvenue à McDooo!
         </h1>
     </header>
     
     <main>
-        <section>
-            <h2>
+        <section id="burgare">
+            <h2 id="stext">
                 Välj en burgare!
             </h2>
-            <p>Här kan du se lite vackra bilder på våra underbart fantastiska burgare.</p>
+            <p id="stext">
+                Här kan du se lite vackra bilder på våra underbart fantastiska burgare.
+            </p>
 
-          <div style="display: inline-block">
+            <div class="wrapper">
+
+          <div style="display: inline-block" id="burg" class="box a">
             <h3>
                 Burger au caillot de sang.
             </h3>
@@ -29,10 +35,14 @@
                 <li>Bacon</li>
                 <li>Mycket Ost</li>
                 <li>Karameliserad lök</li>
+                <section class="ingredient">
+                    <li>Bröd med <span id="allergen">gluten</span></li>
+                </section>
+                
             </ul>
             </div>
 
-            <div style="display: inline-block">
+            <div style="display: inline-block" id="burg" class="box b">
             <h3>
                 Le Burger.
             </h3>
@@ -40,13 +50,19 @@
             <img src="/img/leburger.jpg" style="width: 400px;">
 
             <ul>
-                <li>Tomat   </li>
+                <li>Tomat</li>
                 <li>Lök</li>
-                <li>Sås</li>
+                <section class="ingredient">
+                    <li>Sås med <span id="allergen">laktos</span></li>
+                </section>
+                <section class="ingredient">
+                    <li><span id="allergen">Gluten</span>bröd</li>
+                </section>
+                
             </ul>
             </div>
 
-            <div style="display: inline-block">
+            <div style="display: inline-block" id="burg" class="box c">
             <h3>
                 Burger désagréablement.
             </h3>
@@ -55,22 +71,26 @@
 
             <ul>
                 <li>Monsterkött</li>
-                <li>Gurka</li>
+                <li>Skräckinjagande Gurka</li>
                 <li>Oliver?</li>
+                <section class="ingredient">
+                    <li>Läskigt bröd med <span id="allergen">gluten</span></li>                
+                </section>
             </ul>
             </div>
+        </div>
 
         </section>
         
-        <section>
-            <h2>
+        <section id="info">
+            <h2 id="stext">
                 Information om dig!
             </h2>
-            <p>
-                Vi vill veta lite granna om dig, så inte vi skickar den underbara burgaren till fel person.
+            <p id="stext">
+                Vi vill veta lite granna om dig, så vi inte skickar den underbara burgaren till fel person.
             </p>
 
-            <form>
+            <form id="stext">
                 <p>
                     <label for="Namn">Ditt namn</label><br>
                     <input type="text" id="name" name="n" required="required" placeholder="Namn">
@@ -93,7 +113,7 @@
                     <select type="option" id="betalningsmetod" name="bem">
                     <option>Cash</option>
                     <option>Kort</option>
-                    <option>Kreditkort</option>
+                    <option>Klarna </option>
                     <option selected="selected">Kramar</option>
                     </select>
                 </p>
@@ -120,13 +140,13 @@
 
         </section>
 
-        <button type="submit">
+        <button id="knapp" type="submit">
             <img src="/img/OrderNow.png"style="width: 50px">
             Beställ Nu!
         </button>    
     </main>
     
-    <hr> <!-- Från GPT-->
+    <hr> 
     <footer>
          &copy; 2025 David
     </footer>
