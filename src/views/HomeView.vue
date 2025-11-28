@@ -51,24 +51,24 @@
             <form id="stext">
                 <p>
                     <label for="Namn">Ditt namn</label><br>
-                    <input type="text" id="name" name="n" required placeholder="Namn">
+                    <input type="text" id="name" v-model="n" required placeholder="Namn">
                 </p>
                 <p>
                     <label for="E-postadress">Din e-postadress</label><br>
-                    <input type="text" id="email" name="em" placeholder="E-postadress">
+                    <input type="text" id="email" v-model="em" placeholder="E-postadress">
                 </p>
                 <p>
                     <label for="gata">Namnet på din gata</label><br>
-                    <input type="text" id="gata" name="gn" required placeholder="Gatunamn">
+                    <input type="text" id="gata" v-model="gn" required placeholder="Gatunamn">
                 </p>
                 <p>
                     <label for="Husnummer">Ditt husnummer</label><br>
-                    <input type="number" id="nummer" name="gn" required placeholder="Husnummer">
+                    <input type="number" id="nummer" v-model="gn" required placeholder="Husnummer">
                 </p>
 
                 <p>
                     <label for="betalningsmetod">Betalningsmetod</label><br>
-                    <select type="option" id="betalningsmetod" name="bem">
+                    <select type="option" id="betalningsmetod" v-model="bem">
                     <option>Cash</option>
                     <option>Kort</option>
                     <option>Klarna </option>
