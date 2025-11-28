@@ -12,7 +12,6 @@
     <html lang="en">
    <head>
     <link rel="stylesheet" type="text/css" href="/public/css/style.css">
-       <title>Franska donken</title>
        <meta charset="utf-8"/>
    </head>
    <body>
@@ -118,8 +117,10 @@
 <script>
 import Burger from '../components/OneBurger.vue'
 import io from 'socket.io-client'
+import menu from '../assets/menu.json'
 
-const burgers= [
+
+let burgers= [
   { name: "Burger au caillot de sang.", kCal: 10000, url: "/img/smasmabug.jpg", lactose: true, gluten: true },
   { name: "Le Burger.", kCal: 300, url: "/img/leburger.jpg", lactose: true, gluten: true },
   { name: "Burger désagréablement.", kCal: 600, url: "/img/laskigburgare.jpg", lactose: false, gluten: true }
@@ -134,7 +135,7 @@ export default {
   },
   data: function () {
     return {
-      burgers: burgers
+      burgers: menu
     }
   },
   methods: {
