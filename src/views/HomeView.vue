@@ -51,24 +51,24 @@
             <form id="stext">
                 <p>
                     <label for="Namn">Ditt namn</label><br>
-                    <input type="text" id="name" v-model="n" required placeholder="Namn">
+                    <input type="text" id="namn" v-model="form.namn" required placeholder="Namn">
                 </p>
                 <p>
                     <label for="E-postadress">Din e-postadress</label><br>
-                    <input type="text" id="email" v-model="em" placeholder="E-postadress">
+                    <input type="text" id="email" v-model="form.email" placeholder="E-postadress">
                 </p>
                 <p>
                     <label for="gata">Namnet på din gata</label><br>
-                    <input type="text" id="gata" v-model="gn" required placeholder="Gatunamn">
+                    <input type="text" id="gata" v-model="form.gata" required placeholder="Gatunamn">
                 </p>
                 <p>
                     <label for="Husnummer">Ditt husnummer</label><br>
-                    <input type="number" id="nummer" v-model="gn" required placeholder="Husnummer">
+                    <input type="number" id="nummer" v-model="form.nummer" required placeholder="Husnummer">
                 </p>
 
                 <p>
                     <label for="betalningsmetod">Betalningsmetod</label><br>
-                    <select type="option" id="betalningsmetod" v-model="bem">
+                    <select type="option" id="betalningsmetod" v-model="form.betalningsmetod">
                     <option>Cash</option>
                     <option>Kort</option>
                     <option>Klarna </option>
@@ -79,17 +79,17 @@
                 <p>
                     <label for="Ditt kön">Kön</label>
                     <div>
-                        <input type="radio" id="Man" name="Kön" value="Man"  />
+                        <input type="radio" id="Man" v-model="form.kön" value="Man"  />
                         <label for="Man">Man</label>
                     </div>
 
                     <div>
-                        <input type="radio" id="Kvinna" name="Kön" value="Kvinna" checked  />
+                        <input type="radio" id="Kvinna" v-model="form.kön" value="Kvinna" checked  />
                         <label for="Kvinna">Kvinna</label>
                     </div>
 
                     <div>
-                        <input type="radio" id="Vill ej ange" name="Kön" value="Vill ej ange" />
+                        <input type="radio" id="Vill ej ange" v-model="form.kön" value="Vill ej ange" />
                         <label for="Vill ej ange">Vill ej ange</label>
                     </div>
                 </p>
@@ -98,7 +98,7 @@
 
         </section>
 
-        <button id="knapp" type="submit">
+        <button v-on:click="order">
             <img src="/img/OrderNow.png"style="width: 50px">
             Beställ Nu!
         </button>    
@@ -135,10 +135,30 @@ export default {
   },
   data: function () {
     return {
-      burgers: menu
+      burgers: menu,
+      orderedBurgers,
+      form: {
+        namn:"",
+        email:"",
+        gata:"",
+        nummer:"",
+        betalningsmetod:"",
+        kön:"",
+      }
     }
   },
+
   methods: {
+    order() {
+      console.log("Beställning mottagen!");
+      console.log("Namn:", this.form.namn);
+      console.log("Email:", this.form.email);
+      console.log("Gata:", this.form.gata);
+      console.log("Nummer:", this.form.nummer);
+      console.log("Betalning:", this.form.betalningsmetod);
+      console.log("Kön:", this.form.kön);
+    },
+
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },

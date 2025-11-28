@@ -12,8 +12,12 @@
                 <li v-if="burger.lactose">Innehåller laktos</li>
                 <li v-else>Laktosfri</li>  
                 <li v-if="burger.gluten">Innehåller gluten</li>
-                <li v-else>GLutenfri</li>
+                <li v-else>Glutenfri</li>
             </ul>
+            <button v-on:click="amountOrdered--">-</button>
+            <span>{{ amountOrdered }}</span>
+            <button v-on:click="amountOrdered++">+</button>
+            
             </div>
   </div>
 </template>
@@ -23,9 +27,15 @@ export default {
   name: 'OneBurger',
   props: {
     burger: Object
-    }  
+  },  
+  data: function () {
+    return {
+      amountOrdered: 0,
+    }
   }
+}
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
