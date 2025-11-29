@@ -1,6 +1,7 @@
 <template>
 <div>
-    <div>
+    
+    <!--<div>
     <h1>Burgers</h1>
     <Burger v-for="burger in burgers" 
              v-bind:burger="burger" 
@@ -8,8 +9,8 @@
     </div>
     <div id = map v-on:click="addOrder">
     click here
-    </div>
-   
+    </div>-->
+    
     <html lang="en">
    <head>
     <link rel="stylesheet" type="text/css" href="/public/css/style.css">
@@ -43,6 +44,13 @@
         
 
         </section>
+        <section>
+            <div id= "mapWrapper">
+                <div id = map v-on:click="addOrder">
+                    click here
+                </div>
+            </div>
+         </section>
         
         <section id="info">
             <h2 id="stext">
@@ -191,10 +199,18 @@ export default {
 </script>
 
 <style>
+
+#mapWrapper {
+    margin: 25px 5px 10px 10px;       
+    height: 600px;        
+    overflow: scroll;    
+    border: 5px dashed #000091;
+}
+
   #map {
     background: url("/img/polacks.jpg");
-    width: 300px;
-    height: 300px;
+    width: 1920px;
+    height: 1078px;
   }
 
   body {
