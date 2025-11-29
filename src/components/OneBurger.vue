@@ -14,9 +14,9 @@
                 <li v-if="burger.gluten">Innehåller gluten</li>
                 <li v-else>Glutenfri</li>
             </ul>
-            <button v-on:click="amountOrdered--">-</button>
+            <button v-on:click="reduceAmount()">-</button>
             <span>{{ amountOrdered }}</span>
-            <button v-on:click="amountOrdered++">+</button>
+            <button v-on:click="increaseAmount()">+</button>
             
             </div>
   </div>
@@ -32,8 +32,26 @@ export default {
     return {
       amountOrdered: 0,
     }
-  }
+  },
+  methods: {
+      reduceAmount: function() {
+        if (this.amountOrdered>0) {
+          this.amountOrdered--
+        }
+        this.$emit('orderedBurger', { name: this.burger.name, amount: this.amountOrdered 
+        }
+        );
+      },
+      increaseAmount: function() {
+        this.amountOrdered++
+        this.$emit('orderedBurger', { name: this.burger.name, amount: this.amountOrdered 
+        }
+        );
+      }
+    }, 
+
 }
+
 </script>
 
 

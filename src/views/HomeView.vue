@@ -2,18 +2,20 @@
 <div>
     <div>
     <h1>Burgers</h1>
-    <Burger v-for="burger in burgers"
-            v-bind:burger="burger" 
-            v-bind:key="burger.name"/>
+    <Burger v-for="burger in burgers" 
+             v-bind:burger="burger" 
+             v-bind:key="burger.name" />
     </div>
-    <div id="map" v-on:click="addOrder">
+    <div id = map v-on:click="addOrder">
     click here
     </div>
+   
     <html lang="en">
    <head>
     <link rel="stylesheet" type="text/css" href="/public/css/style.css">
        <meta charset="utf-8"/>
    </head>
+   
    <body>
     <header id="head">
         <img src="https://cdn.pixabay.com/photo/2016/06/13/18/19/france-1454908_1280.jpg" id="flag">
@@ -32,9 +34,11 @@
             </p>
 
             <div class="wrapper">
-                <Burger v-for="burger in burgers"
-                v-bind:burger="burger" 
-                v-bind:key="burger.name"/>
+                <Burger v-for="burger in burgers" 
+             v-bind:burger="burger" 
+             v-bind:key="burger.name"
+             v-on:orderedBurger="updateOrder($event)"    
+              />
             </div>    
         
 
@@ -110,6 +114,7 @@
     </footer>
 
    </body>
+
 </html>
 </div>  
 </template>
@@ -118,7 +123,7 @@
 import Burger from '../components/OneBurger.vue'
 import io from 'socket.io-client'
 import menu from '../assets/menu.json'
-
+import OneBurger from '../components/OneBurger.vue';
 
 let burgers= [
   { name: "Burger au caillot de sang.", kCal: 10000, url: "/img/smasmabug.jpg", lactose: true, gluten: true },
@@ -136,7 +141,8 @@ export default {
   data: function () {
     return {
       burgers: menu,
-      orderedBurgers,
+      orderedBurgers: {
+      },
       form: {
         namn:"",
         email:"",
@@ -149,15 +155,23 @@ export default {
   },
 
   methods: {
-    order() {
-      console.log("Beställning mottagen!");
-      console.log("Namn:", this.form.namn);
-      console.log("Email:", this.form.email);
-      console.log("Gata:", this.form.gata);
-      console.log("Nummer:", this.form.nummer);
-      console.log("Betalning:", this.form.betalningsmetod);
-      console.log("Kön:", this.form.kön);
-    },
+
+  updateOrder(event) {
+    this.orderedBurgers[event.name] = event.amount;
+    console.log("Beställning hittills:", this.orderedBurgers);
+  },
+
+
+  order() {
+    console.log("Beställning mottagen!");
+    console.log("Namn:", this.form.namn);
+    console.log("Email:", this.form.email);
+    console.log("Gata:", this.form.gata);
+    console.log("Nummer:", this.form.nummer);
+    console.log("Betalning:", this.form.betalningsmetod);
+    console.log("Kön:", this.form.kön);
+    console.log("Beställda burgare:", this.orderedBurgers)
+  },
 
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
@@ -178,9 +192,9 @@ export default {
 
 <style>
   #map {
+    background: url("/img/polacks.jpg");
     width: 300px;
     height: 300px;
-    background-color: red;
   }
 
   body {
