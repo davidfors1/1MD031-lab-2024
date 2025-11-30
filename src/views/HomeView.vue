@@ -8,7 +8,6 @@
              v-bind:key="burger.name" />
     </div>
     <div id = map v-on:click="addOrder">
-    click here
     </div>-->
     
     <html lang="en">
@@ -47,7 +46,11 @@
         <section>
             <div id= "mapWrapper">
                 <div id = map v-on:click="addOrder">
-                    click here
+                    <div id="target">
+                        <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}">
+                            T
+                        </div> 
+                    </div>
                 </div>
             </div>
          </section>
@@ -69,14 +72,14 @@
                     <label for="E-postadress">Din e-postadress</label><br>
                     <input type="text" id="email" v-model="form.email" placeholder="E-postadress">
                 </p>
-                <p>
+                <!--<p>
                     <label for="gata">Namnet på din gata</label><br>
                     <input type="text" id="gata" v-model="form.gata" required placeholder="Gatunamn">
                 </p>
                 <p>
                     <label for="Husnummer">Ditt husnummer</label><br>
                     <input type="number" id="nummer" v-model="form.nummer" required placeholder="Husnummer">
-                </p>
+                </p>-->
 
                 <p>
                     <label for="betalningsmetod">Betalningsmetod</label><br>
@@ -151,11 +154,14 @@ export default {
       burgers: menu,
       orderedBurgers: {
       },
+      location: { x: 0,
+            y: 0
+          },
       form: {
         namn:"",
         email:"",
-        gata:"",
-        nummer:"",
+        /*gata:"",
+        nummer:"",*/
         betalningsmetod:"",
         kön:"",
       }
@@ -174,8 +180,8 @@ export default {
     console.log("Beställning mottagen!");
     console.log("Namn:", this.form.namn);
     console.log("Email:", this.form.email);
-    console.log("Gata:", this.form.gata);
-    console.log("Nummer:", this.form.nummer);
+   /* console.log("Gata:", this.form.gata);
+    console.log("Nummer:", this.form.nummer);*/
     console.log("Betalning:", this.form.betalningsmetod);
     console.log("Kön:", this.form.kön);
     console.log("Beställda burgare:", this.orderedBurgers)
@@ -187,6 +193,9 @@ export default {
     addOrder: function (event) {
       var offset = {x: event.currentTarget.getBoundingClientRect().left,
                     y: event.currentTarget.getBoundingClientRect().top};
+        this.location.x = event.clientX - offset.x;
+        this.location.y = event.clientY - offset.y;
+        console.log("Klickad plats:", this.location);
       socket.emit("addOrder", { orderId: this.getOrderNumber(),
                                 details: { x: event.clientX - 10 - offset.x,
                                            y: event.clientY - 10 - offset.y },
@@ -194,15 +203,17 @@ export default {
                               }
                  );
     }
-  }
+
 }
+}
+
 </script>
 
 <style>
 
 #mapWrapper {
     margin: 25px 5px 10px 10px;       
-    height: 600px;        
+    height: 500px;        
     overflow: scroll;    
     border: 5px dashed #000091;
 }
@@ -275,7 +286,26 @@ export default {
      gap: 1em;
      padding: 0;    
     }
-    
+
+    #target {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    width:1920px;
+    height: 1078px;
+    cursor: crosshair;
+  }
+
+    #target div {
+    position: absolute;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    width:20px;
+    height:20px;
+    text-align: center;
+  } 
 
 }
 
