@@ -43,17 +43,6 @@
         
 
         </section>
-        <section>
-            <div id= "mapWrapper">
-                <div id = map v-on:click="addOrder">
-                    <div id="target">
-                        <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}">
-                            T
-                        </div> 
-                    </div>
-                </div>
-            </div>
-         </section>
         
         <section id="info">
             <h2 id="stext">
@@ -72,14 +61,6 @@
                     <label for="E-postadress">Din e-postadress</label><br>
                     <input type="text" id="email" v-model="form.email" placeholder="E-postadress">
                 </p>
-                <!--<p>
-                    <label for="gata">Namnet på din gata</label><br>
-                    <input type="text" id="gata" v-model="form.gata" required placeholder="Gatunamn">
-                </p>
-                <p>
-                    <label for="Husnummer">Ditt husnummer</label><br>
-                    <input type="number" id="nummer" v-model="form.nummer" required placeholder="Husnummer">
-                </p>-->
 
                 <p>
                     <label for="betalningsmetod">Betalningsmetod</label><br>
@@ -110,6 +91,19 @@
                 </p>
             </form>
 
+                    <section>
+            <p id="stext"> Klicka gärna i vart du vill ha din burgare levererad:</p>
+            <div id= "mapWrapper">
+                <div id = map v-on:click="setLocation">
+                    <div id="target">
+                        <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}">
+                            T
+                        </div> 
+                    </div>
+                </div>
+            </div>
+         </section>
+
 
         </section>
 
@@ -136,12 +130,6 @@ import io from 'socket.io-client'
 import menu from '../assets/menu.json'
 import OneBurger from '../components/OneBurger.vue';
 
-let burgers= [
-  { name: "Burger au caillot de sang.", kCal: 10000, url: "/img/smasmabug.jpg", lactose: true, gluten: true },
-  { name: "Le Burger.", kCal: 300, url: "/img/leburger.jpg", lactose: true, gluten: true },
-  { name: "Burger désagréablement.", kCal: 600, url: "/img/laskigburgare.jpg", lactose: false, gluten: true }
-]
-
 const socket = io("localhost:3000");
 
 export default {
@@ -160,8 +148,6 @@ export default {
       form: {
         namn:"",
         email:"",
-        /*gata:"",
-        nummer:"",*/
         betalningsmetod:"",
         kön:"",
       }
@@ -172,48 +158,42 @@ export default {
 
   updateOrder(event) {
     this.orderedBurgers[event.name] = event.amount;
-    console.log("Beställning hittills:", this.orderedBurgers);
   },
 
 
-  order() {
-    console.log("Beställning mottagen!");
-    console.log("Namn:", this.form.namn);
-    console.log("Email:", this.form.email);
-   /* console.log("Gata:", this.form.gata);
-    console.log("Nummer:", this.form.nummer);*/
-    console.log("Betalning:", this.form.betalningsmetod);
-    console.log("Kön:", this.form.kön);
-    console.log("Beställda burgare:", this.orderedBurgers)
+  order: function() {
+    socket.emit("addOrder", { orderId: this.getOrderNumber(),
+                                details: { x: this.location.x,
+                                           y: this.location.y,
+                                           Namn: this.form.namn,
+                                           Email: this.form.email,
+                                           Betalning: this.form.betalningsmetod,
+                                           Kön: this.form. kön,
+                                         },
+                                orderItems: this.orderedBurgers
+                              }
+                            );
   },
 
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
-        this.location.x = event.clientX - offset.x;
-        this.location.y = event.clientY - offset.y;
-        console.log("Klickad plats:", this.location);
-      socket.emit("addOrder", { orderId: this.getOrderNumber(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
-                              }
-                 );
-    }
 
-}
+    setLocation: function (event){
+        var offset = {x: event.currentTarget.getBoundingClientRect().left,
+                    y: event.currentTarget.getBoundingClientRect().top};
+            this.location.x = event.clientX - offset.x;
+            this.location.y = event.clientY - offset.y;
+        }          
+},
 }
 
 </script>
-
 <style>
 
 #mapWrapper {
-    margin: 25px 5px 10px 10px;       
-    height: 500px;        
+    margin: 10px 20px 20px 20px;       
+    height: 400px;       
     overflow: scroll;    
     border: 5px dashed #000091;
 }
@@ -305,11 +285,9 @@ export default {
     width:20px;
     height:20px;
     text-align: center;
+    font-size: large;
   } 
 
 }
-
-
-
 
 </style>
