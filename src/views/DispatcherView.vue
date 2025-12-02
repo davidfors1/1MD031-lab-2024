@@ -1,48 +1,54 @@
-  <template>
-    <div id="orders">
-      <div id="orderList">
-        <div v-for="(order, key) in orders" v-bind:key="'order'+key">
-         <p> Ordernummer: #{{key}} har beställt: {{ order.orderItems }} </p>
+<template>
+  <div id="orders">
+    <div id="orderList">
+      <div v-for="(order, key) in orders" v-bind:key="'order'+key">
+        <p> Order: #{{key}} </p>
+          <ul>
+            <li v-for="(amount, name) in order.orderItems" :key="name">
+              {{ amount }}st {{ name }} 
+           </li>
+          </ul>
         <p id ="orderDetails"> 
-          Kundens Information: Namn: {{ order.details.Namn }}, Email: {{ order.details.Email }}, Kön: {{ order.details.Kön }} och betalningsmetod: {{ order.details.Betalning }}
+          Kund Info: {{ order.details.Namn }}, {{ order.details.Email }}, Kön: {{ order.details.Kön }}, betalar med: {{ order.details.Betalning }}
         </p>
-        <hr>
+          <hr>
       </div>
         <button v-on:click="clearQueue">Clear Queue</button>
-      </div>
-      <div id="dots">
-          <div v-for="(order, key) in orders" v-bind:style="{ left: order.details.x + 'px', top: order.details.y + 'px'}" v-bind:key="'dots' + key">
-            {{ key }}
-          </div>
-      </div>
     </div>
-  </template>
-  <script>
-  import io from 'socket.io-client'
-  const socket = io("localhost:3000");
+      <div id="dots">
+        <div v-for="(order, key) in orders" v-bind:style="{ left: order.details.x + 'px', top: order.details.y + 'px'}" v-bind:key="'dots' + key">
+          {{ key }}
+        </div>
+      </div>
+  </div>
+</template>
   
-  export default {
-    name: 'DispatcherView',
-    data: function () {
-      return {
-        orders: null,
-      }
+<script>
+import io from 'socket.io-client'
+const socket = io("localhost:3000");
+  
+export default {
+  name: 'DispatcherView',
+  data: function () {
+    return {
+      orders: null,
+    }
+  },
+  created: function () {
+    socket.on('currentQueue', data =>
+      this.orders = data.orders);
+  },
+  methods: {
+    clearQueue: function () {
+      socket.emit('clearQueue');
     },
-    created: function () {
-      socket.on('currentQueue', data =>
-        this.orders = data.orders);
-    },
-    methods: {
-      clearQueue: function () {
-        socket.emit('clearQueue');
-      },
-      changeStatus: function(orderId) {
-        socket.emit('changeStatus', {orderId: orderId, status: "Annan status"});
-
+    changeStatus: function(orderId) {
+      socket.emit('changeStatus', {orderId: orderId, status: "Annan status"});
       }
     }
   }
   </script>
+  
   <style>
   #orderList {
     top:1em;
@@ -75,4 +81,3 @@
     text-align: center;
   }
   </style>
-  

@@ -1,29 +1,17 @@
 <template>
-<div>
-    
-    <!--<div>
-    <h1>Burgers</h1>
-    <Burger v-for="burger in burgers" 
-             v-bind:burger="burger" 
-             v-bind:key="burger.name" />
-    </div>
-    <div id = map v-on:click="addOrder">
-    </div>-->
-    
-    <html lang="en">
-   <head>
-    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
-       <meta charset="utf-8"/>
-   </head>
-   
-   <body>
-    <header id="head">
-        <img src="https://cdn.pixabay.com/photo/2016/06/13/18/19/france-1454908_1280.jpg" id="flag">
-        <h1 id="htext">
-            Bienvenue à McDooo!
-        </h1>
-    </header>
-    
+    <div>    
+        <html lang="en">
+        <head>
+            <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+            <meta charset="utf-8"/>
+        </head>
+    <body>
+        <header id="head">
+            <img src="https://cdn.pixabay.com/photo/2016/06/13/18/19/france-1454908_1280.jpg" id="flag">
+            <h1 id="htext">
+                Bienvenue à McDooo!
+            </h1>
+        </header>
     <main>
         <section id="burgare">
             <h2 id="stext">
@@ -35,13 +23,11 @@
 
             <div class="wrapper">
                 <Burger v-for="burger in burgers" 
-             v-bind:burger="burger" 
-             v-bind:key="burger.name"
-             v-on:orderedBurger="updateOrder($event)"    
-              />
+                    v-bind:burger="burger" 
+                    v-bind:key="burger.name"
+                    v-on:orderedBurger="updateOrder($event)"    
+                />
             </div>    
-        
-
         </section>
         
         <section id="info">
@@ -91,7 +77,7 @@
                 </p>
             </form>
 
-                    <section>
+        <section>
             <p id="stext"> Klicka gärna i vart du vill ha din burgare levererad:</p>
             <div id= "mapWrapper">
                 <div id = map v-on:click="setLocation">
@@ -104,12 +90,11 @@
             </div>
          </section>
 
-
         </section>
 
         <button v-on:click="order">
             <img src="/img/OrderNow.png"style="width: 50px">
-            Beställ Nu!
+                Beställ Nu!
         </button>    
     </main>
     
@@ -128,9 +113,22 @@
 import Burger from '../components/OneBurger.vue'
 import io from 'socket.io-client'
 import menu from '../assets/menu.json'
-import OneBurger from '../components/OneBurger.vue';
 
 const socket = io("localhost:3000");
+
+/* function MenuItem(namn, url, kCal, glu, lak) {
+  this.namn = namn;
+  this.URL = url;
+  this.kCal = kCal;
+  this.gluten = glu;
+  this.laktos = lak;
+} 
+*/
+
+/* const burgers = [
+  new MenuItem("Burger au caillot de sang.", "/img/smasmabug.jpg", 1000 ,true, true),
+  new MenuItem("Le Burger.", "/img/leburger.jpg", 300,  true, true),
+  new MenuItem("    "name": "Burger désagréablement.", "/img/laskigburgare.jpg", 600, false, true)] */
 
 export default {
   name: 'HomeView',
@@ -145,21 +143,20 @@ export default {
       location: { x: 0,
             y: 0
           },
-      form: {
-        namn:"",
-        email:"",
-        betalningsmetod:"",
-        kön:"",
-      }
-    }
-  },
+        form: {
+            namn:"",
+            email:"",
+            betalningsmetod:"",
+            kön:"",
+        }
+    }   
+    },
 
   methods: {
 
   updateOrder(event) {
     this.orderedBurgers[event.name] = event.amount;
   },
-
 
   order: function() {
     socket.emit("addOrder", { orderId: this.getOrderNumber(),
@@ -173,7 +170,7 @@ export default {
                                 orderItems: this.orderedBurgers
                               }
                             );
-  },
+    },
 
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
@@ -185,7 +182,7 @@ export default {
             this.location.x = event.clientX - offset.x;
             this.location.y = event.clientY - offset.y;
         }          
-},
+    },
 }
 
 </script>
@@ -236,7 +233,6 @@ export default {
         height: auto;
     }
 
-    
     #burgare {
         border: 5px dashed white;
         margin: 25px 5px 10px 10px;
@@ -268,24 +264,24 @@ export default {
     }
 
     #target {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    background-repeat: no-repeat;
-    width:1920px;
-    height: 1078px;
-    cursor: crosshair;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        background-repeat: no-repeat;
+        width:1920px;
+        height: 1078px;
+        cursor: crosshair;
   }
 
     #target div {
-    position: absolute;
-    background: black;
-    color: white;
-    border-radius: 10px;
-    width:20px;
-    height:20px;
-    text-align: center;
-    font-size: large;
+        position: absolute;
+        background: black;
+        color: white;
+        border-radius: 10px;
+        width:20px;
+        height:20px;
+        text-align: center;
+        font-size: large;
   } 
 
 }
